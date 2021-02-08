@@ -41,7 +41,7 @@ sudo apt-get install octave-resinsight
 # 5. Скачаем репозиторий PETROSCHOOL/opm c github:
 ```
 cd Desktop
-git clone https://github.com/unifloc/opm_examples.git
+git clone https://github.com/PETROSCHOOL/opm.git
 ```
 # 6. Установим необходимые модули для Python:
 ```
