@@ -49,7 +49,7 @@ sudo apt install sudo jupyter-notebook
 pip3 install numpy pandas plotly Pillow ipython cwrap pyzmq ecl ecl2df opm-common
 ```
 Если стандартный метод выбрасывает ошибку *could not find a version that satisfies the requirement*:
-```
-pip3 install git+https://github.com/equinor/ecl.git
-pip3 install git+https://github.com/equinor/ecl2df.git
-```
+`pip3 install git+https://github.com/equinor/ecl.git`
+`pip3 install git+https://github.com/equinor/ecl2df.git`
+or `python3 -m pip install ecl2df`
+
