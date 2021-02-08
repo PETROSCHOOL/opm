@@ -45,7 +45,7 @@ git clone https://github.com/PETROSCHOOL/opm.git
 ```
 # 6. Установим необходимые модули для Python:
 ```
-sudo apt install sudo jupyter-notebook
+sudo apt install jupyter-notebook
 pip3 install numpy pandas plotly Pillow pyzmq notebook ipython cwrap ecl ecl2df opm-common rips
 ```
 Если стандартный метод выбрасывает ошибку *could not find a version that satisfies the requirement*:
