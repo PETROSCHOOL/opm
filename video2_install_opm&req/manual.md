@@ -54,3 +54,6 @@ pip3 install numpy pandas plotly Pillow pyzmq notebook ipython cwrap ecl ecl2df 
 * или `python3 -m pip install ecl2df`
 * `python3 -m pip install opm`
 * `python3 -m pip install rips`
+
+# Дополнительно:
+* vscode: `sudo snap install --classic code`
