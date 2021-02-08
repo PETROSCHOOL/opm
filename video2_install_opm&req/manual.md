@@ -45,6 +45,6 @@ git clone https://github.com/unifloc/opm_examples.git
 ```
 # 6. Установим необходимые модули для Python:
 ```
-sudo apt install sudo ipython jupyter-notebook
+sudo apt install sudo jupyter-notebook
 pip3 install numpy pandas plotly Pillow ipython cwrap pyzmq ecl ecl2df opm-common
 ```
