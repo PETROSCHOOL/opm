@@ -46,10 +46,11 @@ git clone https://github.com/unifloc/opm_examples.git
 # 6. Установим необходимые модули для Python:
 ```
 sudo apt install sudo jupyter-notebook
-pip3 install numpy pandas plotly Pillow ipython cwrap pyzmq ecl ecl2df opm-common
+pip3 install numpy pandas plotly Pillow ipython cwrap pyzmq ecl ecl2df opm-common rips
 ```
 Если стандартный метод выбрасывает ошибку *could not find a version that satisfies the requirement*:
-`pip3 install git+https://github.com/equinor/ecl.git`
-`pip3 install git+https://github.com/equinor/ecl2df.git`
-or `python3 -m pip install ecl2df`
-`python3 -m pip install opm`
+*`pip3 install git+https://github.com/equinor/ecl.git`
+*`pip3 install git+https://github.com/equinor/ecl2df.git`
+*или `python3 -m pip install ecl2df`
+*`python3 -m pip install opm`
+*`python3 -m pip install rips`
