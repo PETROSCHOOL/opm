@@ -19,8 +19,8 @@ sudo apt-get install software-properties-common
 sudo apt-add-repository ppa:opm/ppa
 ```
 **Если вылезает ошибка apt:**
-*`sudo vim /usr/bin/add-apt-repository`
-где необходимо добавить .9 в названии файла
+
+* открыть файл и добавить .9 в названии `sudo vim /usr/bin/add-apt-repository`
 * или `cd /usr/lib/python3/dist-packages` + `sudo cp apt_pkg.cpython-38-x86_64-linux-gnu.so apt_pkg.so`
 ```
 sudo apt-get update
