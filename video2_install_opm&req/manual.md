@@ -56,4 +56,4 @@ pip3 install numpy pandas plotly Pillow pyzmq notebook ipython cwrap ecl ecl2df 
 * `python3 -m pip install rips`
 
 # Дополнительно:
-* vscode: `sudo snap install --classic code`
+* firefox: `sudo apt-get install firefox`
