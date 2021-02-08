@@ -52,4 +52,4 @@ pip3 install numpy pandas plotly Pillow ipython cwrap pyzmq ecl ecl2df opm-commo
 `pip3 install git+https://github.com/equinor/ecl.git`
 `pip3 install git+https://github.com/equinor/ecl2df.git`
 or `python3 -m pip install ecl2df`
-
+`python3 -m pip install opm`
