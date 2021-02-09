@@ -55,3 +55,6 @@ pip3 install numpy pandas plotly Pillow pyzmq ipython cwrap ecl ecl2df opm-commo
 * `python3 -m pip install rips`
 
 Наконец, jupyter notebook: `pip3 install jupyter`
+
+Если не видит команду: ` export PATH=~/.local/bin:$PATH`
+
