@@ -54,4 +54,4 @@ pip3 install numpy pandas plotly Pillow pyzmq ipython cwrap ecl ecl2df opm-commo
 * `python3 -m pip install opm`
 * `python3 -m pip install rips`
 
-Наконец, jupyter notebook: `pip3 install jupyter'
+Наконец, jupyter notebook: `pip3 install jupyter`
