@@ -45,8 +45,7 @@ git clone https://github.com/PETROSCHOOL/opm.git
 ```
 # 6. Установим необходимые модули для Python:
 ```
-sudo apt install jupyter-notebook
-pip3 install numpy pandas plotly Pillow pyzmq notebook ipython cwrap ecl ecl2df opm-common rips
+pip3 install numpy pandas plotly Pillow pyzmq ipython cwrap ecl ecl2df opm-common rips
 ```
 Если стандартный метод выбрасывает ошибку *could not find a version that satisfies the requirement*:
 * `pip3 install git+https://github.com/equinor/ecl.git`
@@ -54,6 +53,4 @@ pip3 install numpy pandas plotly Pillow pyzmq notebook ipython cwrap ecl ecl2df 
 * или `python3 -m pip install ecl2df`
 * `python3 -m pip install opm`
 * `python3 -m pip install rips`
-
-# Дополнительно:
-* firefox: `sudo apt-get install firefox`
+* Наконец jupyter notebook: `pip3 install jupyter'
