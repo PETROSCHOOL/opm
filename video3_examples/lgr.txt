@@ -6,12 +6,12 @@ LGR
 
 CARFIN
 --I1 I2 J1 J2 K1 K2 NX NY NY
-   N1 15 15 9 22 1 14 4 28 14 /
+   N1 6 6 9 10 1 6 4 8 6 /
 ENDFIN
 
 WELSPECL
 -- Item #: 1	 2	3	4	5	 6
-"P1" G1 N1 G1 2 1 1* OIL /
+"P1" G1 N1 2 1 1* OIL /
 
 /
 

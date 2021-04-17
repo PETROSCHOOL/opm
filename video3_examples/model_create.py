@@ -34,7 +34,8 @@ class ModelGenerator:
                  rezim='ORAT', prod_bhp=None, horizontal=False, y_stop=None, only_prod=False,
                  lgr=False, lx=None, ly=None, cells_cy=None, cells_v=None, cells_cx=None,
                  upr_rezim_water=False, upr_rezim_gas=False, rw=None, template=1, neogr=False,
-                 grp=False, nz_grp=1, xs_start_grp=1, xs_stop_grp=2, ys_grp=1, k_grp=100, roughness=False):
+                 grp=False, nz_grp=1, xs_start_grp=1, xs_stop_grp=2, ys_grp=1, k_grp=100, roughness=None, ecl_lgr=False, ofp=0):
+        self.ofp = ofp
         # продолжительность расчета
         self.start_date = f'{start_date}'
         self.tstep = f'{mounths}*{days}'
@@ -45,6 +46,15 @@ class ModelGenerator:
         self.dy = f'{nx*ny*nz}*{dy} /'
         self.dz = f'{nx*ny*nz}*{dz}'
         if template == 2 or template == 4: 
+            if lgr == False:
+                self.dx = f'DX {dx} / \n'
+                self.dx += '/\n\n'
+                self.dx += 'BOX \n'
+                self.dx += f'1 {nx} 1 {ny} 1 {nz} /\n'
+                self.dy = f'DY {dx} / \n'
+                self.dy += '/\n\n'
+                self.dy += 'BOX \n'
+                self.dy += f'1 {nx} 1 {ny} 1 {nz} /\n'
             self.dz = f'DZ {dz} / \n'
             self.dz += '/'
         self.top_box = ''
@@ -55,7 +65,7 @@ class ModelGenerator:
 
         # LGR
         if lgr == True:
-            if template == 1 or template == 3:
+            if template == 1 or template == 3 or template == 5:
                 # формируем измельченную сетку по x
                 dx_lgr = self.setcas(nx, lx, cells_cx, cells_v)
                 self.dx = str(dx_lgr[0]) + ' \n'
@@ -88,7 +98,7 @@ class ModelGenerator:
 
         # физические свойства
         self.por = f'{nx*ny*nz}*{por}'
-        if template == 1 or template == 3:
+        if template == 1 or template == 3 or template == 5:
             self.permx = f'{nx*ny*nz}*{permx}'
             self.permy = f'{nx*ny*nz}*{permy}'
             self.permz = f'{nx*ny*nz}*{permz}'
@@ -234,11 +244,11 @@ class ModelGenerator:
         self.welsegs = ''
         self.compsegs = ''
         if roughness:
-            for name in zip(all_well_names):
+            for name in all_well_names:
                 self.welsegs += f'"{name}" {tops_depth+z2} 0.0 1* INC HF- /\n'
                 self.welsegs += f'2 {y_stop[0]}  1 1 {y_stop[0]+all_well_z2s[0]} 0 {rw*2} {roughness} /\n'
                 self.compsegs += f'"{name}" /\n'
-                self.compsegs +=  f' {all_well_xs[0]} {all_well_ys[0]} {all_well_z2s[0]} 1 1 1* Y {all_well_ys[-1]} /\n'
+                self.compsegs +=  f' {all_well_xs[0]} {all_well_ys[0]} {all_well_z2s[0]} 1 1 1* Y {y_stop[0]} /\n'
 
         # переменные для расчета
         self.result_df = None
@@ -246,13 +256,13 @@ class ModelGenerator:
         self.fig_npv = None
         self.dir = None
         self.result_data = None
-        self.create_data_file()
+        self.create_data_file(ofp)
 
         # переменный для рисования
         self.grid_dx = nx
         self.grid_dy = ny
      
-    def create_data_file(self):
+    def create_data_file(self, ofp):
         if self.template == 1:
             template_name = 'templates/opm.DATA'
         elif self.template == 2:
@@ -266,13 +276,13 @@ class ModelGenerator:
         self.result_data = template.render(DIMENS=self.dimens, START=self.start_date,
             DX=self.dx, DY=self.dy, DZ=self.dz, TOP_BOX=self.top_box, TOPS=self.tops_depth, PORO_BOX=self.poro_box, PORO=self.por,
             PERMX=self.permx, PERMY=self.permy, PERMZ=self.permz, ROCK=self.rock,  DENSITY=self.density,
-            EQUIL=self.equil, WELSPECS=self.welspecs, COMPDAT=self.compdat,
+            EQUIL=self.equil, WELSPECS=self.welspecs, COMPDAT=self.compdat, 
             WCONPROD=self.wconprod, WCONINJE=self.wconinje, TSTEP=self.tstep, GRP=self.grp_word, WELSEGS=self.welsegs, COMPSEGS=self.compsegs)
 
 
     def create_model(self, name, result_name, keys):
         self.save_file(name=name)
-        if self.template == 1 or self.template == 3:
+        if self.template == 1 or self.template == 3 or self.template == 5:
             self.calculate_file(name)
             self.create_result(name=name, keys=keys)
             self.read_result(name=result_name)
@@ -284,7 +294,7 @@ class ModelGenerator:
 
     @staticmethod
     def calculate_file(name):
-        os.system("flow model_folder/%s.DATA" % name)
+        os.system("mpirun flow model_folder/%s.DATA" % name)
 
     @staticmethod
     def create_result(name, keys):
@@ -359,14 +369,14 @@ class ModelGenerator:
             npv_list.append(npv_)
             model_list.append(f'Модель: {name[i]}')
         colors = ['lightslategray',] * 10
-        #colors[6] = 'crimson'
+        colors[3] = 'crimson'
         data = [go.Bar(
             x = model_list,
             y = npv_list,
             marker_color=colors)]
         self.fig_npv = go.Figure(data=data)
         self.fig_npv.update_layout(title='NPV по моделям')
-        self.fig_npv.update_yaxes(type="log")
+        #self.fig_npv.update_yaxes(type="log")
         iplot(self.fig_npv)
 
     # метод для отображения графика с оптимальной плотностью сетки
@@ -395,7 +405,7 @@ class ModelGenerator:
                 xaxis_title=x_axis,
                 yaxis_title=y_axis)
         colors = ['lightslategray',] * 6
-        colors[2] = 'crimson'
+        colors[1] = 'crimson'
         data = [go.Bar(
             x = model_list,
             y = npv_list,
@@ -407,9 +417,9 @@ class ModelGenerator:
 
     # методы расчета NPV для исследования скважин   
     def npv_method(self, df, l):
-        ci = 170*10**6 # руб, капитальные затраты на строительство скважины c поверхностным обустройством;
-        cap_l = 40000 # 3кк*73/3к=73к РУБ, стоимость 1 метра горизонтального ствола;
-        p = 4500 # 62*73*6,3=28500 # руб/м3, net-baсk цена нефти за вычетом НПДИ и подготовку нефти; 
+        ci =0# 170*10**6 # руб, капитальные затраты на строительство скважины c поверхностным обустройством;
+        cap_l = 73000 # 250000 РУБ, стоимость 1 метра горизонтального ствола;
+        p = 4000 # руб/м3, net-baсk цена нефти за вычетом НПДИ и подготовку нефти; 
         opex = 10**6 # руб/год, операционные затраты на скважину;
         r = 0.12 # ставка дисконтирования;
         to = df.index[0]
@@ -425,14 +435,16 @@ class ModelGenerator:
                 dcf = (q*p - opex)/(1 + r)**i
                 npv += dcf 
             j += 1
+            if i == 2:
+                return round(npv, 0)
 
         return round(npv, 0)
 
 
     def npv_plotn_method(self, df, l, A):
-        ci = 170*10**6 # руб, капитальные затраты на строительство скважины c поверхностным обустройством;
-        cap_l = 40000 # РУБ, стоимость 1 метра горизонтального ствола;
-        p = 15000 # руб/м3, net-baсk цена нефти за вычетом НПДИ и подготовку нефти; 
+        ci =0# 170*10**6 # руб, капитальные затраты на строительство скважины c поверхностным обустройством;
+        cap_l =  73000 #153000 # РУБ, стоимость 1 метра горизонтального ствола;
+        p = 4000 # 15000 руб/м3, net-baсk цена нефти за вычетом НПДИ и подготовку нефти; 
         opex = 10**6 # руб/год, операционные затраты на скважину;
         r = 0.12 # ставка дисконтирования;
         to = df.index[0]
@@ -448,6 +460,8 @@ class ModelGenerator:
                 dcf = (q*p - opex)/A/(1 + r)**i
                 npv += dcf 
             j += 1
+            if i == 2:
+                return round(npv, 0)
 
         return round(npv, 0)
 
