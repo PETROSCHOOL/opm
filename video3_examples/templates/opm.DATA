@@ -1,0 +1,513 @@
+---------------------------------------------------------------------------
+-------------------------- RIENM Corporation ------------------------------
+---------------------------------------------------------------------------
+
+RUNSPEC
+-- -------------------------------------------------------------------------
+
+TITLE
+   RIENM_CORP - CASE 1
+
+DIMENS
+   {{ DIMENS }} /
+
+EQLDIMS
+/
+
+TABDIMS
+/
+
+OIL
+WATER
+
+
+METRIC
+
+START
+	{{ START }} /
+
+WELLDIMS
+-- Item 1: maximum number of wells in the model
+-- Item 2: maximum number of grid blocks connected to any one well
+-- Item 3: maximum number of groups in the model
+-- Item 4: maximum number of wells in any one group
+   1000 10000 10 100 /
+
+UNIFOUT
+
+GRID
+
+INIT
+
+
+-- -------------------------------------------------------------------------
+NOECHO
+
+DX 
+{{ DX }}
+DY
+{{ DY }}
+DZ
+{{ DZ }} /
+
+
+TOPS
+{{ TOPS }} /
+
+
+PORO
+{{ PORO }} /
+
+PERMX
+{{ PERMX }} /
+
+PERMY
+{{ PERMX }} /
+
+PERMZ
+{{ PERMZ }} /
+
+
+{{ GRP }}
+
+ECHO
+
+PROPS
+-- -------------------------------------------------------------------------
+
+PVTW
+-- Item 1: pressure reference 
+-- Item 2: water FVF 
+-- Item 3: water compressibility 
+-- Item 4: water viscosity (cp)
+-- Item 5: water 'viscosibility' 
+
+	256     1.024 2.9E-005      0.53        1* /
+
+
+ROCK
+-- Item 1: reference pressure 
+-- Item 2: rock compressibility 
+   {{ ROCK }}
+/
+
+SWOF
+-- Column 1: water saturation
+-- Column 2: water relative permeability
+-- Column 3: oil relative permeability when only oil and water are present
+-- Column 4: water-oil capillary pressure 
+0	0	0.9	0.689
+0.283	0.000	0.692	0.689
+0.317	0.004	0.585	0.584
+0.351	0.016	0.487	0.486
+0.407	0.052	0.346	0.348
+0.458	0.103	0.238	0.240
+0.505	0.166	0.156	0.159
+0.560	0.259	0.082	0.080
+0.603	0.345	0.041	0.040
+0.654	0.465	0.010	0.010
+0.705	0.601	0.000	0.000
+1	1	0	0
+/
+
+
+DENSITY
+ {{ DENSITY }}
+
+PVDO
+--  Press    Bo       Muo
+          191            1.26440385534    1.07600351127
+222.578947368            1.25788591028    1.12401519605
+254.157894737            1.25300978815    1.17921641629
+285.736842105            1.24922456104    1.24077162266
+317.315789474            1.24620098694    1.30797795893
+348.894736842            1.24373020033    1.38020427389
+380.473684211            1.24167330638     1.4568540499
+412.052631579            1.23993434527    1.53734302219
+443.631578947            1.23844489262    1.62108633339
+475.210526316            1.23715484417    1.70749215139
+506.789473684             1.2360266692    1.79595980039
+538.368421053            1.23503169928     1.8858810855
+569.947368421            1.23414765824    1.97664386141
+601.526315789            1.23335697467    2.06763712353
+          650            1.23229355174    2.20637991996
+/
+
+
+SOLUTION
+-- -------------------------------------------------------------------------
+
+EQUIL
+-- Item 1: datum depth
+-- Item 2: pressure at datum depth 
+-- Item 3: depth of water-oil contact
+-- Item 4: oil-water capillary pressure at the water oil contact 
+-- Item 5: depth of gas-oil contact
+-- Item 6: gas-oil capillary pressure at gas-oil contact
+-- Item 7: RSVD-table
+-- Item 8: RVVD-table
+-- Item 9: Set to 0 as this is the only value supported by OPM
+ {{ EQUIL }}
+
+   
+
+SUMMARY
+-- -------------------------------------------------------------------------
+RPTONLY
+DATE
+FGPR
+FGPRF
+FGPRS
+FGPT
+FGPTF
+FGPTS
+FLPR
+FLPT
+FOPR
+FOPRF
+FOPRS
+FOPT
+FOPTF
+FOPTS
+FWPR
+FWPT
+FGIR
+FGIT
+FOIR
+FOIT
+FWIR
+FWIT
+FVPR
+FVPT
+FVIR
+FVIT
+FGOR
+FWCT
+FGSAT
+FOSAT
+FWSAT
+FGPV
+FOPV
+FWPV
+FAQR
+FAQT
+FNQR
+FNQT
+FGIP
+FGIPG
+FGIPL
+FOIP
+FOIPG
+FOIPL
+FWIP
+FRPV
+FHPV
+FOE
+FOEW
+FOEIW
+FOEIG
+FMWIN
+FMWIP
+FMWIT
+FMWPP
+FMWPR
+FMWPT
+FPR
+FOVIS
+FRS
+RGIP
+/
+RGIPG
+/
+RGIPL
+/
+ROIP
+/
+ROIPG
+/
+ROIPL
+/
+RWIP
+/
+RHPV
+/
+RPR
+/
+RRPV
+/
+ROE
+/
+ROEIW
+/
+ROPR
+/
+ROPT
+/
+RWPR
+/
+RWPT
+/
+RWIR
+/
+RWIT
+/
+RGSAT
+/
+ROSAT
+/
+RWSAT
+/
+RRS
+/
+GGPR
+/
+GGPT
+/
+GLPR
+/
+GLPT
+/
+GOPR
+/
+GOPT
+/
+GWPR
+/
+GWPT
+/
+GGIR
+/
+GGIT
+/
+GOIR
+/
+GOIT
+/
+GWIR
+/
+GWIT
+/
+GGOR
+/
+GWCT
+/
+WGPT
+/
+WGPTF
+/
+WLPT
+/
+WOPT
+/
+WOPTF
+/
+WOPTS
+/
+WWPT
+/
+WVPT
+/
+WGIT
+/
+WOIT
+/
+WWIT
+/
+WVIT
+/
+WEFF
+/
+WGPR
+/
+WGPRF
+/
+WLPR
+/
+WOPR
+/
+WOPRF
+/
+WOPRS
+/
+WWPR
+/
+WVPR
+/
+WGIR
+/
+WOIR
+/
+WWIR
+/
+WVIR
+/
+WGOR
+/
+WWCT
+/
+WBHP
+/
+WBP
+/
+WBP4
+/
+WBP5
+/
+WBP9
+/
+WTHP
+/
+WTHT
+/
+WAPI
+/
+CGPT
+/
+CGPTF
+/
+CLPT
+
+/
+COPT
+/
+COPTS
+/
+CVPT
+/
+CWIT
+/
+CVIT
+/
+CPR
+/
+CTFAC
+/
+FGPRH
+FGPTH
+FLPRH
+FLPTH
+FOPRH
+FOPTH
+FWPRH
+FWPTH
+FGIRH
+FGITH
+FOIRH
+FOITH
+FWIRH
+FWITH
+FGORH
+FWCTH
+GGPRH
+/
+GGPTH
+/
+GLPRH
+/
+GLPTH
+/
+GOPRH
+/
+GOPTH
+/
+GWPRH
+/
+GWPTH
+/
+GGIRH
+/
+GGITH
+/
+GOIRH
+/
+GOITH
+/
+GWIRH
+/
+GWITH
+/
+GGORH
+/
+GWCTH
+/
+WGPRH
+/
+WGPTH
+/
+WLPRH
+/
+WLPTH
+/
+WOPRH
+/
+WOPTH
+/
+WWPRH
+/
+WWPTH
+/
+WGIRH
+/
+WGITH
+/
+WOIRH
+/
+WOITH
+/
+WWIRH
+/
+WWITH
+/
+WGORH
+/
+WWCTH
+/
+WBHPH
+/
+WTHPH
+/
+
+
+SCHEDULE
+-- -------------------------------------------------------------------------
+RPTSCHED
+	'PRES' 'SGAS' 'RS' 'WELLS' /
+
+RPTRST
+	'BASIC=1' /
+
+-- If no resolution (i.e. case 1). the two following lines must be added:
+DRSDT
+ 0 /
+-- if DRSDT is set to 0. GOR cannot rise and free gas does not
+-- dissolve in undersaturated oil -> constant bubble point pressure
+
+WELSPECS
+-- Item #: 1	 2	3	4	5	 6
+{{ WELSPECS }}
+/
+
+
+COMPDAT
+-- Item #: 1	2	3	4	5	6	7	8	9
+{{ COMPDAT }}
+/
+
+
+
+WCONPROD
+-- Item #:1	2      3     4	   5  9
+{{ WCONPROD }}
+/
+
+
+WCONINJE
+-- Item #:1	 2	 3	 4	5      6  7
+{{ WCONINJE }}/
+
+
+TSTEP
+{{ TSTEP }} /
+
+
+END
